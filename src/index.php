@@ -1,13 +1,13 @@
 <?php
 
-$dir = '/usr/share/nginx/html/created';
+$dir = getcwd() . '/testdir';
 
 echo 'Running as user: ' . get_current_user() . "<br>";
 
 if (!is_writable('/usr/share/nginx/html')) {
-    echo "The directory /usr/share/nginx/html is not writable.<br>";
+    echo "The directory $dir is not writable.<br>";
 } else {
-    echo "The directory /usr/share/nginx/html is writable.<br>";
+    echo "The directory $dir is writable.<br>";
 }
 
 if (!is_dir($dir)) {

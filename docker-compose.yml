@@ -1,0 +1,25 @@
+services:
+  web:
+    image: nginx:latest
+    container_name: nginx_server
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./src:/var/www/html
+    ports:
+      - "8080:80"
+    depends_on:
+      - php_fpm
+    command: /bin/bash -c "chown -R www-data:www-data /var/www/html && nginx -g 'daemon off;'"
+
+  php_fpm:
+    image: php:8.1-fpm
+    container_name: php_fpm
+    volumes:
+      - ./src:/var/www/html
+      - ./php/php.ini:/usr/local/etc/php/php.ini
+    command: /bin/bash -c "chown -R www-data:www-data /var/www/html && php-fpm"
+    user: www-data
+
+
+volumes:
+  src:
